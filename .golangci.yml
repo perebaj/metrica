@@ -1,0 +1,9 @@
+linters:
+  enable:
+    - revive
+    - misspell
+    - gofmt
+issues:
+  exclude:
+    - EXC0012
+  exclude-use-default: false
