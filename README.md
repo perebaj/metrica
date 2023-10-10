@@ -1,20 +1,23 @@
 # metrica
 
-What we are trying to solve here? A simple race condition problem, here multiple pieces of code are trying to access the same shared data!
+What we are trying to solve here? A simple race condition problem, where multiple pieces of code are trying to access the same shared data!
+
+![image](assets/metrica.png)
 
 
-# Api Example
+## Get starting
 
-Request
-```bash
-    curl -i -X 'GET' http://localhost:8080/count
-```
+All commands could be accessed typing: `make help`
+
+To test the code using containers🐋
+
+`make dev/test` & `make dev/lint`
 
 
 ## Resources
 
-This example is really close with the problem that we have here
+Some resources that were useful to solve it
 
-[Mutex](https://golangbot.com/mutex/)
-[Atomic Counters](https://gobyexample.com/atomic-counters)
-[Bjorn Rabenstein - Prometheus: Designing and Implementing a Modern Monitoring Solution in Go](https://www.youtube.com/watch?v=1V7eJ0jN8-E)
+- [Mutex](https://golangbot.com/mutex/)
+- [Atomic Counters](https://gobyexample.com/atomic-counters)
+- [Bjorn Rabenstein - Prometheus: Designing and Implementing a Modern Monitoring Solution in Go](https://www.youtube.com/watch?v=1V7eJ0jN8-E)
