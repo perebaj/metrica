@@ -16,7 +16,7 @@ devrun=docker run $(devrunopts) --rm \
 ## run isolated tests
 .PHONY: test
 test:
-	go test ./... -timeout 10s -race -shuffle on
+	go test -run="$(testcase)" ./... -timeout 10s -race -shuffle on
 
 ## Run lint
 .PHONY: lint
