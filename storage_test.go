@@ -2,14 +2,13 @@ package metrica
 
 import (
 	"os"
+	"sync"
 	"testing"
 	"time"
 )
 
 func TestWriteRead(t *testing.T) {
-	c := Counter{
-		Datetime: time.Now().Format(time.RFC3339Nano),
-	}
+	c := Counter(time.Now())
 
 	f, err := os.CreateTemp("", "test")
 	if err != nil {
@@ -19,18 +18,39 @@ func TestWriteRead(t *testing.T) {
 		_ = os.Remove(f.Name())
 	}()
 
-	if err := Write(f, c); err != nil {
+	fs := NewFileStorage(&sync.Mutex{}, f.Name())
+
+	if err := fs.Write(c); err != nil {
 		t.Fatalf("error writing to file: %v", err)
 	}
 
-	got, err := Read(f.Name())
+	got, err := fs.Read()
 	if err != nil {
 		t.Fatalf("error reading file: %v", err)
 	}
 
 	if len(got) == 1 {
-		assert(t, got[0].Format(time.RFC3339Nano), c.Datetime)
+		assert(t, c.Format(), got[0].Format())
 	} else {
 		t.Fatalf("expected 1; got %v", len(got))
 	}
+}
+
+func TestCountersCount60sec(t *testing.T) {
+	currentTime := time.Now()
+	counters := Counters{
+		Counter(currentTime.Add(-time.Second * 10)),
+		Counter(currentTime.Add(-time.Second * 10)),
+		Counter(currentTime.Add(-time.Second * 20)),
+		Counter(currentTime.Add(-time.Second * 30)),
+		Counter(currentTime.Add(-time.Second * 40)),
+		Counter(currentTime.Add(-time.Second * 50)),
+		Counter(currentTime.Add(-time.Second * 60)),
+	}
+	want := int64(6)
+	got := counters.Count60sec()
+	if got != want {
+		t.Fatalf("expected %v; got %v", want, got)
+	}
+
 }
