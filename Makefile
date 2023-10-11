@@ -1,4 +1,4 @@
-export GO_VERSION=1.21.1
+export GO_VERSION=1.21.3
 export GOLANGCI_LINT_VERSION=v1.54.0
 
 # configuration/aliases
@@ -16,7 +16,7 @@ devrun=docker run $(devrunopts) --rm \
 ## run isolated tests
 .PHONY: test
 test:
-	go test -run="$(testcase)" ./... -timeout 10s -race -shuffle on
+	go test -run="$(testcase)" ./... -cover -race -shuffle on
 
 ## Run lint
 .PHONY: lint
