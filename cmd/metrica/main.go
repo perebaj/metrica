@@ -10,9 +10,8 @@ import (
 )
 
 func main() {
-	c := metrica.NewAtomicCounter()
 	fs := metrica.NewFileStorage(&sync.Mutex{}, "metrica.txt")
-	mux := metrica.Handler(c, fs)
+	mux := metrica.Handler(fs)
 
 	slog.Info("Starting server", "port", 8080)
 	err := http.ListenAndServe(":8080", mux)
