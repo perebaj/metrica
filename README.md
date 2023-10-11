@@ -21,3 +21,4 @@ Some resources that were useful to solve it
 - [Mutex](https://golangbot.com/mutex/)
 - [Atomic Counters](https://gobyexample.com/atomic-counters)
 - [Bjorn Rabenstein - Prometheus: Designing and Implementing a Modern Monitoring Solution in Go](https://www.youtube.com/watch?v=1V7eJ0jN8-E)
+- [go file mutex](https://echorand.me/posts/go-file-mutex/)
