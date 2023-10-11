@@ -8,10 +8,12 @@ import (
 	"time"
 )
 
+// Counter is a struct that holds the datetime of the request
 type Counter struct {
 	Datetime string
 }
 
+// Write writes the datetime to the file
 func Write(f *os.File, c Counter) error {
 	_, err := f.WriteString(fmt.Sprintf("%v\n", c.Datetime))
 	if err != nil {
@@ -20,12 +22,16 @@ func Write(f *os.File, c Counter) error {
 	return nil
 }
 
+// Read reads the datetime from the file
 func Read(filename string) ([]time.Time, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, fmt.Errorf("error opening file: %v", err)
 	}
-	defer f.Close()
+
+	defer func() {
+		_ = f.Close()
+	}()
 
 	fileData, err := io.ReadAll(f)
 	if err != nil {

@@ -15,7 +15,9 @@ func TestWriteRead(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error creating temp file: %v", err)
 	}
-	defer os.Remove(f.Name())
+	defer func() {
+		_ = os.Remove(f.Name())
+	}()
 
 	if err := Write(f, c); err != nil {
 		t.Fatalf("error writing to file: %v", err)

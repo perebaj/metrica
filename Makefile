@@ -1,4 +1,4 @@
-export GO_VERSION=1.21.1
+export GO_VERSION=1.21.3
 export GOLANGCI_LINT_VERSION=v1.54.0
 
 # configuration/aliases
