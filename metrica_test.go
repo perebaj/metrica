@@ -8,25 +8,7 @@ import (
 	"testing"
 )
 
-func TestHandlerCount(t *testing.T) {
-	req := httptest.NewRequest("GET", "/count", nil)
-	w := httptest.NewRecorder()
-	c := AtomicCounter{}
-	mux := Handler(&c)
-	mux.ServeHTTP(w, req)
-	if w.Code != http.StatusOK {
-		t.Errorf("expected status OK; got %v", w.Code)
-	}
-
-	var got countResponse
-	if err := json.NewDecoder(w.Body).Decode(&got); err != nil {
-		t.Errorf("unable to decode body: %v", err)
-	}
-
-	assert(t, 1, got.Count)
-}
-
-func TestHandlerCount_Multiple(t *testing.T) {
+func TestHandlerCount_Sequential(t *testing.T) {
 	c := NewAtomicCounter()
 	mux := Handler(c)
 
