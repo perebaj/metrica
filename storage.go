@@ -13,10 +13,10 @@ import (
 // Counter is an alias for time.Time
 type Counter time.Time
 
-// Counters is a list of Counter
+// Counters is a list of Counters
 type Counters []Counter
 
-// FileStorage is a struct that implements the Storage interface
+// FileStorage is a struct that implements the Storage methods
 type FileStorage struct {
 	mu       *sync.Mutex
 	fileName string
@@ -30,7 +30,7 @@ func NewFileStorage(mu *sync.Mutex, fileName string) *FileStorage {
 	}
 }
 
-// Write writes the datetime to the file
+// Write save a Counter in the file
 func (m *FileStorage) Write(c Counter) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -47,7 +47,7 @@ func (m *FileStorage) Write(c Counter) error {
 	return nil
 }
 
-// Read reads the datetime from the file
+// Read returns a list of Counters
 func (m *FileStorage) Read() (Counters, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()

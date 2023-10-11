@@ -11,7 +11,7 @@ import (
 
 func main() {
 	c := metrica.NewAtomicCounter()
-	fs := metrica.NewFileStorage(&sync.Mutex{}, "counters.txt")
+	fs := metrica.NewFileStorage(&sync.Mutex{}, "metrica.txt")
 	mux := metrica.Handler(c, fs)
 
 	slog.Info("Starting server", "port", 8080)
