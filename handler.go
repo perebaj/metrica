@@ -14,20 +14,12 @@ type countResponse struct {
 }
 
 // Handler returns a http.Handler for new endpoints.
-func Handler(c *AtomicCounter, fs *FileStorage) http.Handler {
+func Handler(fs *FileStorage) http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/count", func(w http.ResponseWriter, r *http.Request) {
-		counter(w, r, c)
-	})
 	mux.HandleFunc("/countfs", func(w http.ResponseWriter, r *http.Request) {
 		counterFs(w, r, fs)
 	})
 	return mux
-}
-
-func counter(w http.ResponseWriter, _ *http.Request, c *AtomicCounter) {
-	c.Inc(1)
-	send(w, http.StatusOK, countResponse{Count: c.Value()})
 }
 
 func counterFs(w http.ResponseWriter, _ *http.Request, fs *FileStorage) {
