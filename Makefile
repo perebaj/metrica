@@ -12,6 +12,10 @@ devrun=docker run $(devrunopts) --rm \
 	-v $(gocache):/root/.cache/go-build \
 	$(devimage)
 
+## start the service
+.PHONY: service
+service:
+	go run cmd/metrica/main.go
 
 ## run isolated tests
 .PHONY: test
@@ -39,6 +43,10 @@ dev/image:
 dev: devrunopts=-ti
 dev: dev/image
 	$(devrun)
+
+## run the load test. Obs: you need to run the service before in a different terminal - make service
+.PHONY: loadtest
+loadtest: k6 run --vus 100 --iterations 10000  loadtest/main.js  
 
 ## run a make target inside the dev container.
 dev/%: dev/image

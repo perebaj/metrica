@@ -14,6 +14,15 @@ To test the code using containers🐋
 `make dev/test` & `make dev/lint`
 
 
+## LoadTest 
+
+The load tests it's using the following rules:
+
+	- 100 concurrent users
+	- 10000 requests in total
+
+![image](assets/loadtest.png)
+
 ## Resources
 
 Some resources that were useful to solve it
